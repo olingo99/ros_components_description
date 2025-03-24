@@ -96,6 +96,9 @@
       sim_ignition="true"
       use_fake_hardware="${use_fake_hardware}"
       fake_sensor_commands="${fake_sensor_commands}"
+      sim_isaac="false"
+      isaac_joint_commands="/isaac_joint_commands"
+      isaac_joint_states="/isaac_joint_states"
     >
       <origin xyz="${xyz}" rpy="${rpy}" />
     </xacro:kinova_manipulator.load_robot>
@@ -123,6 +126,8 @@
         fake_sensor_commands="${fake_sensor_commands}"
         sim_ignition="true"
         sim_isaac="false"
+        isaac_joint_commands="/isaac_joint_commands"
+        isaac_joint_states="/isaac_joint_states"
       />
     </xacro:unless>
 
