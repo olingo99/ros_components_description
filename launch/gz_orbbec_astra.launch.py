@@ -19,14 +19,8 @@ from launch_ros.actions import Node
 from nav2_common.launch import ReplaceString
 
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, OpaqueFunction
+from launch.actions import DeclareLaunchArgument
 from launch.substitutions import EnvironmentVariable, LaunchConfiguration, PythonExpression
-
-def print_launch_parameters(context, *args, **kwargs):
-    print("Launch parameter values:")
-    for key, value in context.launch_configurations.items():
-        print(f"{key} = {value}")
-    return []
 
 def generate_launch_description():
     ros_components_description = get_package_share_directory("ros_components_description")
@@ -38,7 +32,7 @@ def generate_launch_description():
     device_namespace = LaunchConfiguration("device_namespace")
     gz_bridge_name = LaunchConfiguration("gz_bridge_name")
 
-    # device_namespace = PythonExpression(["'' if '", device_namespace, "' else 'camera'"])
+    device_namespace = PythonExpression(["'' if '", device_namespace, "' else 'camera'"])
 
     namespaced_gz_bridge_config_path = ReplaceString(
         source_file=gz_bridge_config_path,
@@ -81,6 +75,5 @@ def generate_launch_description():
             declare_robot_namespace,
             declare_gz_bridge_name,
             gz_bridge,
-            OpaqueFunction(function=print_launch_parameters),
         ]
     )
